@@ -100,4 +100,15 @@ elif total_progress >= 30:
 else:
     st.error("🛠️ Strategy still at an early stage. Let’s take action soon!")
 
-
+st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='text-align:center; color:#555; font-size:14px;'>
+        La Fédération Française de Ski Annecy
+    </div>
+    <div style='text-align:right; color:#555; font-size:14px;'>
+        Roman RIBOUD -- Salma ATAIBE
+    </div>
+    """,
+    unsafe_allow_html=True
+)
