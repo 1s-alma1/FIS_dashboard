@@ -1,35 +1,33 @@
 
 import streamlit as st
 import plotly.graph_objects as go
-import plotly.express as px
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
 
-# Configuration générale
-st.set_page_config(page_title="FIS Dashboard App", page_icon="💡", layout="wide")
+# Page config
+st.set_page_config(page_title="Low-Carbon FIS Dashboard", page_icon="🌱", layout="wide")
 
-st.title("💡 FIS Dashboard App")
-st.markdown("**Simulation complète du processus FIS : de la collecte des données aux actions correctives.**")
+st.title("🌱 Low-Carbon FIS Dashboard")
+st.markdown("**Simulation and tracking of low-carbon strategy using FIS tool.**")
 
-# Menu de navigation
+# Sidebar menu
 menu = st.sidebar.radio(
-    "🧭 Choisis un module :",
-    ["Simulation", "Carte Mentale", "Storytelling", "Gamification", "IA Prédictive"]
+    "Select module:",
+    ["Simulation", "Mind Map", "Gamification"]
 )
 
 # -------------------------------------------------------------
-# 1️⃣ MODULE : Simulation interactive
+# 1️⃣ Simulation Module
 # -------------------------------------------------------------
 if menu == "Simulation":
-    st.header("📊 Simulation du flux de données - Processus FIS")
+    st.header("📊 Low-Carbon Strategy Process by using FIS Tool")
 
-    steps = ["Collecte des données", "Intégration FIS", "Autres outils", "Analyse Excel", "Actions correctives"]
+    steps = ["Data Collection", "FIS Integration", "Other Tools", "Excel Analysis", "Corrective Actions"]
 
     fig = go.Figure(go.Sankey(
         node=dict(
-            pad=15,
+            pad=20,
             thickness=30,
             label=steps,
             color=["#4CAF50", "#2196F3", "#FFC107", "#9C27B0", "#E91E63"]
@@ -41,116 +39,46 @@ if menu == "Simulation":
         )
     ))
 
+    fig.update_layout(title_text="Low-Carbon Strategy Flow", font_size=12)
     st.plotly_chart(fig, use_container_width=True)
 
-    st.info("Simulation du flux des données à travers les différentes étapes du processus FIS.")
-    st.progress(100)
-    st.success("✅ Processus complété avec succès !")
-
 # -------------------------------------------------------------
-# 2️⃣ MODULE : Carte mentale dynamique
+# 2️⃣ Mind Map Module
 # -------------------------------------------------------------
-elif menu == "Carte Mentale":
-    st.header("🧠 Carte mentale du processus FIS")
+elif menu == "Mind Map":
+    st.header("Carbon Strategy Process - Mind Map")
 
     G = nx.DiGraph()
     edges = [
-        ("Collecte des données", "Intégration FIS"),
-        ("Intégration FIS", "Autres outils"),
-        ("Autres outils", "Analyse Excel"),
-        ("Analyse Excel", "Actions correctives")
+        ("Data Collection", "FIS Integration"),
+        ("FIS Integration", "Other Tools"),
+        ("Other Tools", "Excel Analysis"),
+        ("Excel Analysis", "Corrective Actions")
     ]
     G.add_edges_from(edges)
 
     pos = nx.spring_layout(G, seed=42)
     colors = ["lightgreen", "lightblue", "gold", "violet", "salmon"]
 
-    fig, ax = plt.subplots(figsize=(7,5))
-    nx.draw(G, pos, with_labels=True, node_color=colors, node_size=3000, font_size=9, font_weight="bold", arrows=True)
-    ax.set_title("Carte mentale du flux de traitement FIS")
+    fig, ax = plt.subplots(figsize=(8,5))
+    nx.draw(G, pos, with_labels=True, node_color=colors, node_size=3500,
+            font_size=10, font_weight="bold", arrows=True)
+    ax.set_title("Carbon Strategy Process - Mind Map", fontsize=14)
     st.pyplot(fig)
-    st.caption("Visualisation des connexions logiques entre les étapes du processus.")
 
 # -------------------------------------------------------------
-# 3️⃣ MODULE : Storytelling visuel
-# -------------------------------------------------------------
-elif menu == "Storytelling":
-    st.header("🎬 Storytelling - Évolution du processus FIS")
-
-    df = pd.DataFrame({
-        "Étape": ["Collecte", "FIS", "Autres outils", "Excel", "Actions"],
-        "Progression": [10, 40, 60, 80, 100]
-    })
-
-    fig = px.bar(
-        df, 
-        x="Étape", 
-        y="Progression", 
-        text="Progression",
-        title="📊 Évolution du processus FIS",
-        animation_frame="Étape", 
-        range_y=[0, 100]
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.markdown("""
-    ### 🧩 Description :
-    - **Collecte** → Rassemblement des données brutes  
-    - **FIS** → Intégration et nettoyage  
-    - **Autres outils** → Analyses détaillées  
-    - **Excel** → Synthèse des KPI  
-    - **Actions** → Propositions correctives  
-    """)
-
-# -------------------------------------------------------------
-# 4️⃣ MODULE : Dashboard Gamifié
+# 3️⃣ Gamification Module
 # -------------------------------------------------------------
 elif menu == "Gamification":
-    st.header("🎮 Dashboard Gamifié - Progression du processus FIS")
+    st.header("🎮 Gamification - Track Progress for Each Step")
 
-    stages = {
-        "Collecte des données": 1,
-        "Intégration FIS": 2,
-        "Autres outils": 3,
-        "Analyse Excel": 4,
-        "Actions correctives": 5
-    }
+    steps = ["Data Collection", "FIS Integration", "Other Tools", "Excel Analysis", "Corrective Actions"]
+    progress_values = {}
 
-    completed = st.slider("📈 Niveau de progression global :", 0, 5, 3)
-    st.progress(completed / 5)
+    for step in steps:
+        progress_values[step] = st.slider(f"Progress for {step} (%)", 0, 100, 0)
 
-    for i, step in enumerate(stages, start=1):
-        if i <= completed:
-            st.success(f"✅ {step} - Terminée")
-        else:
-            st.warning(f"⏳ {step} - En attente")
-
-    if completed == 5:
-        st.balloons()
-        st.success("🎉 Félicitations ! Toutes les étapes sont complétées avec succès !")
-
-# -------------------------------------------------------------
-# 5️⃣ MODULE : Simulation IA Prédictive
-# -------------------------------------------------------------
-elif menu == "IA Prédictive":
-    st.header("🤖 Simulation IA - Impact des actions correctives")
-
-    data = pd.DataFrame({
-        "actions_correctives": [1, 2, 3, 4, 5],
-        "taux_erreur": [20, 15, 10, 6, 3]
-    })
-
-    X = data[["actions_correctives"]]
-    y = data["taux_erreur"]
-    model = LinearRegression().fit(X, y)
-    pred = model.predict(X)
-
-    fig, ax = plt.subplots()
-    ax.plot(X, y, "o-", label="Données réelles")
-    ax.plot(X, pred, "--", label="Prédiction IA")
-    ax.set_title("Impact des actions correctives sur le taux d’erreur")
-    ax.set_xlabel("Nombre d’actions correctives")
-    ax.set_ylabel("Taux d’erreur (%)")
-    ax.legend()
-    st.pyplot(fig)
-    st.info("Cette simulation montre comment les actions correctives peuvent réduire les erreurs dans le système FIS.")
+    st.markdown("### Current Progress:")
+    for step, value in progress_values.items():
+        st.progress(value)
+        st.write(f"{step}: {value}%")
