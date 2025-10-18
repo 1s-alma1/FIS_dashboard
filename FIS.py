@@ -104,10 +104,11 @@ st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
 st.markdown(
     """
     <div style='text-align:center; color:#555; font-size:14px;'>
-        La Fédération Française de Ski Annecy
+        La Fédération Française de Ski 
+                 Annecy
     </div>
     <div style='text-align:right; color:#555; font-size:14px;'>
-        Roman RIBOUD -- Salma ATAIBE
+        Roman RIBOUD -- Salma ATTAIBE
     </div>
     """,
     unsafe_allow_html=True
