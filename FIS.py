@@ -9,7 +9,7 @@ with col1:
     st.image("FIS_logo.png", width=80)
 with col2:
     st.markdown("<h1 style='text-align:center; color:#1B5E20;'>🌿 Low-Carbon Strategy Progress</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center; color:#555;'>Track and visualize your sustainability implementation steps</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center; color:#555;'>Track and visualize the sustainability implementation steps</p>", unsafe_allow_html=True)
 with col3:
     st.image("FFS_logo.png", width=80)
 
@@ -18,12 +18,9 @@ st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
 # ---- PROGRESS TRACKER ----
 st.header("📈 Progress Tracker")
 
-st.markdown("""
-<p style='font-size:16px; color:#444;'>
-Adjust the completion percentage for each step in your <b>Low-Carbon Strategy</b> using the FIS Tool.
-The total progress updates automatically.
-</p>
-""", unsafe_allow_html=True)
+
+
+
 
 steps = ["Data Collection", "FIS Integration", "Excel Analysis", "Corrective Actions"]
 progress_values = {}
