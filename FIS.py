@@ -94,7 +94,8 @@ elif menu == "Mind Map":
 
     st.markdown("""
     <p style='font-size:16px; color:#444;'>
-    Visual representation of the low-carbon process, from data collection to corrective actions, highlighting the interconnections of each component.
+    Visual representation of the low-carbon process, from data collection to corrective actions, 
+    highlighting the interconnections of each component.
     </p>
     """, unsafe_allow_html=True)
 
@@ -124,4 +125,34 @@ elif menu == "Mind Map":
 # ============================================================
 # 3️⃣ GAMIFICATION MODULE (kept as requested)
 # ============================================================
-elif menu == "Gamifi
+elif menu == "Gamification":
+    st.header("🎮 Gamification - Track Progress for Each Step")
+
+    steps = ["Data Collection", "FIS Integration", "Other Tools", "Excel Analysis", "Corrective Actions"]
+    progress_values = {}
+
+    # --- Individual Step Sliders ---
+    for step in steps:
+        progress_values[step] = st.slider(f"Progress for {step} (%)", 0, 100, 0)
+
+    st.markdown("### Current Progress:")
+    for step, value in progress_values.items():
+        st.progress(value)
+        st.write(f"{step}: {value}%")
+
+    # --- Global Progress Slider ---
+    st.markdown("---")
+    st.subheader("📈 Overall Process Completion")
+    total_progress = st.slider("Total process completion (%)", 0, 100, 50)
+    st.progress(total_progress)
+    st.write(f"**Overall Low-Carbon Strategy Progress:** {total_progress}%")
+
+    if total_progress == 100:
+        st.success("🎉 Excellent! Your low-carbon strategy is fully implemented.")
+    elif total_progress >= 70:
+        st.info("🚀 You’re on the right path — keep improving sustainability actions.")
+    elif total_progress >= 30:
+        st.warning("⚙️ Initial steps complete — continue refining your strategy.")
+    else:
+        st.error("🛠️ Strategy still at early stage. Let’s take action soon!")
+
