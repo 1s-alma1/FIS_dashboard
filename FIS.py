@@ -117,31 +117,15 @@ elif menu == "Mind Map":
 # 3️⃣ GAMIFICATION MODULE
 # ============================================================
 elif menu == "Gamification":
-    st.subheader("🎮 Track Progress for Each Step")
+    st.header("🎮 Gamification - Track Progress for Each Step")
 
-    st.markdown("""
-    <p style='font-size:16px; color:#444;'>
-    Adjust each step’s progress manually to visualize advancement toward a fully sustainable process.
-    </p>
-    """, unsafe_allow_html=True)
-
-    steps = [
-        "Data Collection",
-        "FIS Integration",
-        "Supporting Tools",
-        "Excel Analysis",
-        "Corrective Actions"
-    ]
+    steps = ["Data Collection", "FIS Integration", "Other Tools", "Excel Analysis", "Corrective Actions"]
     progress_values = {}
 
-    cols = st.columns(len(steps))
-    for i, step in enumerate(steps):
-        with cols[i]:
-            progress_values[step] = st.slider(f"{step}", 0, 100, 0)
-            st.progress(progress_values[step])
+    for step in steps:
+        progress_values[step] = st.slider(f"Progress for {step} (%)", 0, 100, 0)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### 🔍 Summary of Progress")
+    st.markdown("### Current Progress:")
     for step, value in progress_values.items():
-        st.write(f"**{step}:** {value}%")
-
+        st.progress(value)
+        st.write(f"{step}: {value}%")
