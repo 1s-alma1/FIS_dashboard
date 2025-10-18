@@ -46,5 +46,26 @@ elif total_progress >= 30:
     st.warning("⚙️ Initial steps complete — continue refining your strategy.")
 else:
     st.error("🛠️ Strategy still at an early stage. Let’s take action soon!")
+from graphviz import Digraph
+
+st.subheader("🌍 FIS Process Flow Simulation")
+
+st.markdown("""
+<p style='font-size:16px; color:#444;'>
+A simple process flow showing the key stages of the Low-Carbon Strategy.
+</p>
+""", unsafe_allow_html=True)
+
+dot = Digraph()
+dot.attr(rankdir='LR', bgcolor="#f8fff8")
+
+dot.node("A", "Data Collection", shape="box", style="filled", fillcolor="#66BB6A")
+dot.node("B", "FIS Integration", shape="box", style="filled", fillcolor="#81C784")
+dot.node("C", "Excel Analysis", shape="box", style="filled", fillcolor="#A5D6A7")
+dot.node("D", "Corrective Actions", shape="box", style="filled", fillcolor="#C8E6C9")
+
+dot.edges(["AB", "BC", "CD"])
+
+st.graphviz_chart(dot)
 
 
