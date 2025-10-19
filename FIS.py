@@ -18,15 +18,18 @@ st.set_page_config(
 )
 
 # ======================================================
-# 🌿 HEADER SECTION
+# 🌿 HEADER SECTION (FIXED ONE-LINE TITLE)
 # ======================================================
 col1, col2, col3 = st.columns([1, 5, 1])
 with col1:
     st.image("FIS_logo.png", width=80)
 with col2:
     st.markdown(
-        "<h1 style='text-align:center; color:#1B5E20;'>🌿 Low-Carbon Strategy 
-        </h1>",
+        """
+        <h1 style='text-align:center; color:#1B5E20; white-space:nowrap;'>
+            🌿 Low-Carbon Strategy
+        </h1>
+        """,
         unsafe_allow_html=True
     )
     st.markdown(
