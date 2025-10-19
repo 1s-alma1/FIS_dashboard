@@ -2,7 +2,11 @@ import streamlit as st
 import plotly.graph_objects as go
 
 # ---- PAGE CONFIG ----
-st.set_page_config(page_title="FIS Low-Carbon Progress Tracker", page_icon="🌿", layout="centered")
+st.set_page_config(
+    page_title="FIS Low-Carbon Progress Tracker",
+    page_icon="🌿",
+    layout="centered"
+)
 
 # ---- HEADER ----
 col1, col2, col3 = st.columns([1, 5, 1])
@@ -91,7 +95,7 @@ for i, (step, data) in enumerate(steps_info.items()):
         textposition="middle center",
         textfont=dict(size=14, color="white"),
         marker=dict(
-            size=120 if step == selected_step else 100,  # plus grande si sélectionnée
+            size=120 if step == selected_step else 100,
             color=data["color"],
             line=dict(width=4 if step == selected_step else 2, color="#1B5E20"),
             opacity=1 if step == selected_step else 0.7
@@ -157,11 +161,8 @@ for step in tracker_steps:
     key = step.replace(" ", "_").lower()
     if key not in st.session_state:
         st.session_state[key] = 0
-    st.session_state[key] = st.slider(step, 0, 100, st.session_state[key], key=key)
-    progress_values[step] = st.session_state[key]
-
+    progress_values[step] = st.slider(step, 0, 100, value=st.session_state[key], key=key)
 total_progress = int(sum(progress_values.values()) / len(tracker_steps))
-
 st.markdown("---")
 st.subheader("🌍 Overall Process Completion")
 st.progress(total_progress)
