@@ -1,5 +1,10 @@
 import streamlit as st
 import plotly.graph_objects as go
+import json
+import os
+
+# ---- FILE FOR SAVING STATE ----
+STATE_FILE = "progress_state.json"
 
 # ---- PAGE CONFIG ----
 st.set_page_config(
@@ -140,7 +145,7 @@ st.markdown(
 st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
 
 # ======================================================
-# 📈 PROGRESS TRACKER
+# 📈 PROGRESS TRACKER (persistant)
 # ======================================================
 st.header("📈 Progress Tracker")
 
@@ -154,15 +159,28 @@ The total progress updates automatically.
     unsafe_allow_html=True
 )
 
+# --- Load saved state ---
+if os.path.exists(STATE_FILE):
+    with open(STATE_FILE, "r") as f:
+        saved_state = json.load(f)
+else:
+    saved_state = {}
+
 tracker_steps = ["Data Collection", "FIS Integration/Other", "Excel Analysis", "Corrective Actions"]
 progress_values = {}
 
 for step in tracker_steps:
     key = step.replace(" ", "_").lower()
-    if key not in st.session_state:
-        st.session_state[key] = 0
-    progress_values[step] = st.slider(step, 0, 100, value=st.session_state[key], key=key)
+    default_value = saved_state.get(key, 0)
+    progress_values[step] = st.slider(step, 0, 100, value=default_value, key=key)
+
+# --- Save state automatically ---
+save = {step.replace(" ", "_").lower(): progress_values[step] for step in tracker_steps}
+with open(STATE_FILE, "w") as f:
+    json.dump(save, f)
+
 total_progress = int(sum(progress_values.values()) / len(tracker_steps))
+
 st.markdown("---")
 st.subheader("🌍 Overall Process Completion")
 st.progress(total_progress)
@@ -190,5 +208,4 @@ st.markdown(
 """,
     unsafe_allow_html=True
 )
-
 
