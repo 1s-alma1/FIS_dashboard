@@ -59,8 +59,7 @@ steps_info = {
         "color": "#7EE8FA",  # Aqua Mint
         "description": """
 📊 **Data Collection Phase**  
-Gather comprehensive data related to energy use, materials, and logistics from all operational levels.  
-This stage ensures the foundation for accurate emission calculations.
+Collect all relevant data and information whithin LOCs/NSA and stakeholders responsible for key deliverables related to the organisation, product, or service including energy consumption, transportation, materials, and other sustainability-related factors.
 """
     },
     "FIS Integration": {
@@ -82,7 +81,8 @@ This insight enables focused sustainability improvements.
         "color": "#CBA6E3",  # Orchid Mauve
         "description": """
 ⚙️ **Corrective Actions**  
-Develop and implement corrective measures based on data insights — optimizing operations, reducing energy intensity, and fostering a low-carbon culture.
+Implement targeted corrective measures based on analysis outcomes to minimize carbon emissions and improve sustainability performance.  
+These actions support the organization’s commitment to achieving a low-carbon transition.
 """
     }
 }
