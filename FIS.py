@@ -1,4 +1,3 @@
-
 import streamlit as st
 import plotly.graph_objects as go
 
@@ -10,57 +9,66 @@ col1, col2, col3 = st.columns([1, 5, 1])
 with col1:
     st.image("FIS_logo.png", width=80)
 with col2:
-    st.markdown("<h1 style='text-align:center; color:#1B5E20;'>🌿 Low-Carbon Strategy Progress</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center; color:#555;'>Track and visualize the sustainability implementation steps</p>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 style='text-align:center; color:#1B5E20;'>🌿 Low-Carbon Strategy Progress</h1>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        "<p style='text-align:center; color:#555;'>Track and visualize the sustainability implementation steps</p>",
+        unsafe_allow_html=True
+    )
 with col3:
     st.image("FFS_logo.png", width=80)
 
 st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
 
 # ======================================================
-# 🌍 FIS PROCESS SIMULATION (INTERACTIVE BUBBLES)
+# 🌍 INTERACTIVE LOW-CARBON PLAN DIAGRAM
 # ======================================================
 st.subheader("🌍 FIS Low-Carbon Process Simulation")
 
-st.markdown("""
+st.markdown(
+    """
 <p style='font-size:16px; color:#444;'>
 Click on each step below to see the details of the <b>Low-Carbon Strategy</b>.
 </p>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True
+)
 
 # --- Step data ---
 steps_info = {
     "Data Collection": {
         "color": "#2E7D32",
         "description": """
-        📊 **Data Collection Phase**  
-        Collecte des données liées à l’énergie, au transport et au matériel sportif.  
-        Objectif : établir une base carbone fiable et exhaustive.
-        """
+📊 **Data Collection Phase**  
+Collecte des données liées à l’énergie, au transport et au matériel sportif.  
+Objectif : établir une base carbone fiable et exhaustive.
+"""
     },
     "FIS Integration": {
         "color": "#43A047",
         "description": """
-        🔗 **Integration with FIS Tool**  
-        Intégration du modèle FIS pour mesurer l’impact carbone global.  
-        Objectif : synchroniser les données et visualiser les KPI environnementaux.
-        """
+🔗 **Integration with FIS Tool**  
+Intégration du modèle FIS pour mesurer l’impact carbone global.  
+Objectif : synchroniser les données et visualiser les KPI environnementaux.
+"""
     },
     "Excel Analysis": {
         "color": "#66BB6A",
         "description": """
-        📈 **Excel Analysis**  
-        Analyse des indicateurs carbone et comparaison des sites et saisons.  
-        Objectif : identifier les leviers d’amélioration.
-        """
+📈 **Excel Analysis**  
+Analyse des indicateurs carbone et comparaison des sites et saisons.  
+Objectif : identifier les leviers d’amélioration.
+"""
     },
     "Corrective Actions": {
         "color": "#A5D6A7",
         "description": """
-        ⚙️ **Corrective Actions**  
-        Mise en œuvre d’actions concrètes : mobilité durable, énergies vertes, recyclage.  
-        Objectif : tendre vers la neutralité carbone.
-        """
+⚙️ **Corrective Actions**  
+Mise en œuvre d’actions concrètes : mobilité durable, énergies vertes, recyclage.  
+Objectif : tendre vers la neutralité carbone.
+"""
     }
 }
 
@@ -76,7 +84,8 @@ fig = go.Figure()
 
 for i, (step, data) in enumerate(steps_info.items()):
     fig.add_trace(go.Scatter(
-        x=[i], y=[0],
+        x=[i],
+        y=[0],
         mode="markers+text",
         text=[step],
         textposition="middle center",
@@ -94,7 +103,11 @@ for i, (step, data) in enumerate(steps_info.items()):
         fig.add_annotation(
             x=i + 0.5, y=0,
             ax=i + 0.1, ay=0,
-            showarrow=True, arrowhead=3, arrowsize=1.5, arrowwidth=2, arrowcolor="#2E7D32"
+            showarrow=True,
+            arrowhead=3,
+            arrowsize=1.5,
+            arrowwidth=2,
+            arrowcolor="#2E7D32"
         )
 
 fig.update_layout(
@@ -112,27 +125,30 @@ st.plotly_chart(fig, use_container_width=True)
 # --- Display step description dynamically ---
 st.markdown(
     f"""
-    <div style='background-color:{steps_info[selected_step]["color"]}; 
-                color:white; padding:20px; border-radius:15px; margin-top:15px;'>
-        {steps_info[selected_step]["description"]}
-    </div>
-    """,
+<div style='background-color:{steps_info[selected_step]["color"]};
+            color:white; padding:20px; border-radius:15px; margin-top:15px;'>
+    {steps_info[selected_step]["description"]}
+</div>
+""",
     unsafe_allow_html=True
 )
 
 st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
 
 # ======================================================
-# 📈 PROGRESS TRACKER (reste inchangé)
+# 📈 PROGRESS TRACKER
 # ======================================================
 st.header("📈 Progress Tracker")
 
-st.markdown("""
+st.markdown(
+    """
 <p style='font-size:16px; color:#444;'>
 Adjust the completion percentage for each step in your <b>Low-Carbon Strategy</b>.  
 The total progress updates automatically.
 </p>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True
+)
 
 tracker_steps = ["Data Collection", "FIS Integration/Other", "Excel Analysis", "Corrective Actions"]
 progress_values = {}
@@ -163,13 +179,15 @@ else:
 st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
 st.markdown(
     """
-    <div style='text-align:center; color:#555; font-size:14px;'>
-        La Fédération Française de Ski 
-                 Annecy
-    </div>
-    <div style='text-align:right; color:#555; font-size:14px;'>
-        Roman RIBOUD -- Salma ATTAIBE
-    </div>
-    """,
+<div style='text-align:center; color:#555; font-size:14px;'>
+    La Fédération Française de Ski 
+             Annecy
+</div>
+<div style='text-align:right; color:#555; font-size:14px;'>
+    Roman RIBOUD -- Salma ATTAIBE
+</div>
+""",
     unsafe_allow_html=True
 )
+
+
