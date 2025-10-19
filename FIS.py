@@ -25,7 +25,7 @@ with col1:
     st.image("FIS_logo.png", width=80)
 with col2:
     st.markdown(
-        "<h1 style='text-align:center; color:#1B5E20;'>🌿 Low-Carbon Strategy</h1>",
+        "<h1 style='text-align:center; color:#1B5E20;'>🌿 Low-Carbon Strategy     </h1>",
         unsafe_allow_html=True
     )
     st.markdown(
