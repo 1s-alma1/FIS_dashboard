@@ -27,7 +27,7 @@ This diagram illustrates the key stages of the <b>Low-Carbon Strategy</b> using 
 </p>
 """, unsafe_allow_html=True)
 
-steps = ["Data Collection", "FIS Integration/Other", "Excel Analysis", "Corrective Actions"]
+steps = ["Data Collection", "FIS Integration", "Excel Analysis", "Corrective Actions"]
 colors = ["#2E7D32", "#43A047", "#66BB6A", "#A5D6A7"]
 
 fig = go.Figure()
@@ -75,7 +75,7 @@ The total progress updates automatically.
 </p>
 """, unsafe_allow_html=True)
 
-steps = ["Data Collection", "FIS Integration", "Excel Analysis", "Corrective Actions"]
+steps = ["Data Collection", "FIS Integration/Other", "Excel Analysis", "Corrective Actions"]
 progress_values = {}
 
 # Individual Step Sliders
