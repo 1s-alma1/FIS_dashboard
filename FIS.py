@@ -1,13 +1,30 @@
-# ======================================================
-# 🌍 INTERACTIVE LOW-CARBON PLAN DIAGRAM
-# ======================================================
 
-st.subheader("🧭 FIS Low-Carbon Strategy — Interactive Overview")
+        import streamlit as st
+import plotly.graph_objects as go
+
+# ---- PAGE CONFIG ----
+st.set_page_config(page_title="FIS Low-Carbon Progress Tracker", page_icon="🌿", layout="centered")
+
+# ---- HEADER ----
+col1, col2, col3 = st.columns([1, 5, 1])
+with col1:
+    st.image("FIS_logo.png", width=80)
+with col2:
+    st.markdown("<h1 style='text-align:center; color:#1B5E20;'>🌿 Low-Carbon Strategy Progress</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center; color:#555;'>Track and visualize the sustainability implementation steps</p>", unsafe_allow_html=True)
+with col3:
+    st.image("FFS_logo.png", width=80)
+
+st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
+
+# ======================================================
+# 🌍 FIS PROCESS SIMULATION (INTERACTIVE BUBBLES)
+# ======================================================
+st.subheader("🌍 FIS Low-Carbon Process Simulation")
 
 st.markdown("""
 <p style='font-size:16px; color:#444;'>
-Explore each phase of the <b>Low-Carbon Strategy</b> by selecting a step below.  
-Each stage reveals its detailed objectives and key sustainability actions.
+Click on each step below to see the details of the <b>Low-Carbon Strategy</b>.
 </p>
 """, unsafe_allow_html=True)
 
@@ -47,16 +64,14 @@ steps_info = {
     }
 }
 
-# --- Step selector (clickable buttons) ---
+# --- Interactive step selector ---
 selected_step = st.radio(
-    "Sélectionnez une étape du plan 👇",
+    "Select a step 👇",
     list(steps_info.keys()),
     horizontal=True
 )
 
-# --- Create interactive bubble diagram ---
-import plotly.graph_objects as go
-
+# --- Bubble diagram ---
 fig = go.Figure()
 
 for i, (step, data) in enumerate(steps_info.items()):
@@ -65,16 +80,16 @@ for i, (step, data) in enumerate(steps_info.items()):
         mode="markers+text",
         text=[step],
         textposition="middle center",
-        textfont=dict(size=15, color="white"),
+        textfont=dict(size=14, color="white"),
         marker=dict(
             size=120 if step == selected_step else 100,  # plus grande si sélectionnée
             color=data["color"],
             line=dict(width=4 if step == selected_step else 2, color="#1B5E20"),
-            opacity=1 if step == selected_step else 0.6
+            opacity=1 if step == selected_step else 0.7
         ),
         hoverinfo="text"
     ))
-    # Flèches entre les bulles
+    # flèches entre bulles
     if i < len(steps_info) - 1:
         fig.add_annotation(
             x=i + 0.5, y=0,
@@ -94,12 +109,66 @@ fig.update_layout(
 
 st.plotly_chart(fig, use_container_width=True)
 
-# --- Display the selected step description dynamically ---
+# --- Display step description dynamically ---
 st.markdown(
     f"""
     <div style='background-color:{steps_info[selected_step]["color"]}; 
                 color:white; padding:20px; border-radius:15px; margin-top:15px;'>
         {steps_info[selected_step]["description"]}
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
+
+# ======================================================
+# 📈 PROGRESS TRACKER (reste inchangé)
+# ======================================================
+st.header("📈 Progress Tracker")
+
+st.markdown("""
+<p style='font-size:16px; color:#444;'>
+Adjust the completion percentage for each step in your <b>Low-Carbon Strategy</b>.  
+The total progress updates automatically.
+</p>
+""", unsafe_allow_html=True)
+
+tracker_steps = ["Data Collection", "FIS Integration/Other", "Excel Analysis", "Corrective Actions"]
+progress_values = {}
+
+for step in tracker_steps:
+    key = step.replace(" ", "_").lower()
+    if key not in st.session_state:
+        st.session_state[key] = 0
+    st.session_state[key] = st.slider(step, 0, 100, st.session_state[key], key=key)
+    progress_values[step] = st.session_state[key]
+
+total_progress = int(sum(progress_values.values()) / len(tracker_steps))
+
+st.markdown("---")
+st.subheader("🌍 Overall Process Completion")
+st.progress(total_progress)
+st.write(f"**Overall Progress:** {total_progress}%")
+
+if total_progress == 100:
+    st.success("🎉 Excellent! Your low-carbon strategy is fully implemented.")
+elif total_progress >= 70:
+    st.info("🚀 You’re on the right path — keep improving sustainability actions.")
+elif total_progress >= 30:
+    st.warning("⚙️ Initial steps complete — continue refining your strategy.")
+else:
+    st.error("🛠️ Strategy still at an early stage. Let’s take action soon!")
+
+st.markdown("<hr style='border:1px solid #ccc;'>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='text-align:center; color:#555; font-size:14px;'>
+        La Fédération Française de Ski 
+                 Annecy
+    </div>
+    <div style='text-align:right; color:#555; font-size:14px;'>
+        Roman RIBOUD -- Salma ATTAIBE
     </div>
     """,
     unsafe_allow_html=True
