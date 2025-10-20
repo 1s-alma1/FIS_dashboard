@@ -215,20 +215,49 @@ elif total_progress >= 30:
 else:
     st.error("🛠️ Strategy still at an early stage. Let’s take action soon!")
 
+
 # ======================================================
 # 📊 ADD THE IMAGE AT THE END (AFTER FOOTER TEXT)
 # ======================================================
-st.markdown("<br><h3 style='text-align:center; color:#1B5E20;'>Déplacement des équipes selon le type d’événement</h3>", unsafe_allow_html=True)
+import os
+from PIL import Image, ImageEnhance
 
-# Centered image with border and clear background
+# Title above the image
 st.markdown(
-    """
-    <div style='background-color:#f9f9f9; border:2px solid #ccc; border-radius:10px; padding:10px; text-align:center;'>
-        <img src='IMG_2388.png' style='width:95%; border-radius:8px;'>
-    </div>
-    """,
+    "<br><h3 style='text-align:center; color:#1B5E20;'>Déplacement des équipes selon le type d’événement</h3>",
     unsafe_allow_html=True
 )
+
+# Debug (optional): show current directory and files if image not found
+# st.write("Current directory:", os.getcwd())
+# st.write("Files here:", os.listdir())
+
+try:
+    # Open and slightly enhance brightness for clarity
+    image = Image.open("IMG_2388.png")
+    enhancer = ImageEnhance.Brightness(image)
+    image = enhancer.enhance(1.15)  # Increase brightness by 15%
+
+    # Display with full width and light frame
+    st.markdown(
+        """
+        <div style='background-color:#f9f9f9;
+                    border:2px solid #ccc;
+                    border-radius:10px;
+                    padding:10px;
+                    text-align:center;
+                    margin-top:10px;'>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.image(image, use_container_width=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+except FileNotFoundError:
+    st.error("⚠️ Image file 'IMG_2388.png' not found in the current directory.")
+
 
 # ======================================================
 # 📍 FOOTER
