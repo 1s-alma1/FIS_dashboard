@@ -215,13 +215,20 @@ elif total_progress >= 30:
 else:
     st.error("🛠️ Strategy still at an early stage. Let’s take action soon!")
 
-
 # ======================================================
 # 📊 ADD THE IMAGE AT THE END (AFTER FOOTER TEXT)
 # ======================================================
 st.markdown("<br><h3 style='text-align:center; color:#1B5E20;'>Déplacement des équipes selon le type d’événement</h3>", unsafe_allow_html=True)
 
-st.image("IMG_2388.png", use_column_width=True)
+# Centered image with border and clear background
+st.markdown(
+    """
+    <div style='background-color:#f9f9f9; border:2px solid #ccc; border-radius:10px; padding:10px; text-align:center;'>
+        <img src='IMG_2388.png' style='width:95%; border-radius:8px;'>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # ======================================================
 # 📍 FOOTER
